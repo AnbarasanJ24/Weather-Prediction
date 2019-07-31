@@ -1,0 +1,11 @@
+<input type="text" name="" value ="" placeHolder="Please enter the City Name" #cityName id="cityName">
+
+<button type= "button" value= "button" 
+class="btn btn-outline-primary btn-lr"
+(click)="this.getWeather(cityName.value)" #History> 
+Search<span class="fa fa-search"></span>
+</button>
+
+<div *ngIf ="this.chart">
+    <canvas id="canvas"> {{ this.chart}}</canvas>
+</div>
