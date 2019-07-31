@@ -17,7 +17,7 @@ export class WeatherComponent implements OnInit {
   ngOnInit(){ }
 
   getWeather(cityName) {
-    this.weatherService.getData(cityName)
+    return this.weatherService.getData(cityName)
       .subscribe(res => {
         this.cityName = res.city.name;
         let temp_max = res['list'].map(res => res.main.temp_max);
@@ -33,7 +33,7 @@ export class WeatherComponent implements OnInit {
         console.log(weatherDates);
 
         
-        return this.chart = new Chart('canvas',{
+        this.chart = new Chart('canvas',{
           type : 'line',
           data :{
             labels : dates,
