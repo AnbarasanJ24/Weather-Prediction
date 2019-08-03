@@ -16,25 +16,28 @@ export class WeatherComponent implements OnInit {
   color = Chart.helpers.color;
   
   constructor(private weatherService :WeatherService) { }
+  ngOnInit() { }
 
 
   getWeather(cityName) {
     this.weatherService.getData(cityName)
       .subscribe(res => {
-        var cityName = res.city.name;
         var temp_max = res['list'].map(res => res.main.temp_max);
         var temp_min= res['list'].map(res => res.main.temp_min);
-        var dates = res['list'].map(res => res.dt_txt);
-
+        var dates = res['list'].map(res => res.dt);
+ 
+        var dateFormat = [];
+        dates.forEach(res => {
+          let jsdate = new Date (res*1000);
+          dateFormat.push(jsdate.toLocaleTimeString('en',{month: 'short',day: 'numeric'}));
+        })       
         
-        
-        console.log(temp_max);
-        console.log(cityName);
+        console.log(res);
 
         this.chart = new Chart('canvas',{
           type : 'bar',
           data :{
-            labels : [dates],
+            labels : [dateFormat[0],dateFormat[1],dateFormat[2],dateFormat[3],dateFormat[4],dateFormat[5],dateFormat[6]],
             datasets: [
               {
                 label: 'Maximum Temp',
@@ -69,15 +72,7 @@ export class WeatherComponent implements OnInit {
         });
 
       })
-
-      
-
     }
-
-    ngOnInit() {
-    
-      
-     }
 }
 
 
