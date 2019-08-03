@@ -1,0 +1,15 @@
+#cityName{
+    position : relative;
+    width: 63%;
+    height: 20%;
+    
+}
+#search{
+    position : relative;
+    height: 20%;
+}
+canvas {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}

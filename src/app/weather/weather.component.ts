@@ -3,6 +3,8 @@ import { WeatherService } from '../weather.service';
 import { Chart} from 'chart.js';
 
 
+
+
 @Component({
   selector: 'app-weather',
   templateUrl: './weather.component.html',
@@ -11,48 +13,49 @@ import { Chart} from 'chart.js';
 export class WeatherComponent implements OnInit {
 
   chart = [];
-  cityName;
+  color = Chart.helpers.color;
   
   constructor(private weatherService :WeatherService) { }
-  ngOnInit(){ }
+
 
   getWeather(cityName) {
-    return this.weatherService.getData(cityName)
+    this.weatherService.getData(cityName)
       .subscribe(res => {
-        this.cityName = res.city.name;
-        let temp_max = res['list'].map(res => res.main.temp_max);
-        let temp_min = res['list'].map(res => res.main.temp_min);
-        let dates = res['list'].map(res => res.dt);
-        
-        let weatherDates =[]
-        dates.forEach(res => {
-          let jsdate  = new Date(res *1000)    
-          weatherDates.push(jsdate.toDateString());
-        });
-
-        console.log(weatherDates);
+        var cityName = res.city.name;
+        var temp_max = res['list'].map(res => res.main.temp_max);
+        var temp_min= res['list'].map(res => res.main.temp_min);
+        var dates = res['list'].map(res => res.dt_txt);
 
         
+        
+        console.log(temp_max);
+        console.log(cityName);
+
         this.chart = new Chart('canvas',{
-          type : 'line',
+          type : 'bar',
           data :{
-            labels : dates,
-            dataSets: [
+            labels : [dates],
+            datasets: [
               {
+                label: 'Maximum Temp',
+                backgroundColor: '#ff8a80' ,
+                borderColor: 'white',
+                borderWidth: 1,
                 data : temp_max,
-                borderColor : '#ffcc00',
-                fill : false
               },
               {
+                label: 'Maximum Temp',
+                backgroundColor: '#5c6bc0' ,
+                borderColor: 'white',
+                borderWidth: 1,
                 data : temp_min,
-                borderColor : '#ffcc00',
-                fill : false
-              }
+              },
            ] 
           },
           options : {
+            responsive : true,
             legend : {
-              display : false
+              position : 'top',
             },
             scales: {
               xAxes : [{
@@ -64,6 +67,17 @@ export class WeatherComponent implements OnInit {
             }
           }
         });
+
       })
+
+      
+
     }
+
+    ngOnInit() {
+    
+      
+     }
 }
+
+

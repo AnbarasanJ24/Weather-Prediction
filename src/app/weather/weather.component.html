@@ -1,11 +1,14 @@
+<h1>Weather Analysis</h1>
+
 <input type="text" name="" value ="" placeHolder="Please enter the City Name" #cityName id="cityName">
 
-<button type= "button" value= "button" 
+<button type= "button" value= "button"
+id="search"
 class="btn btn-outline-primary btn-lr"
 (click)="this.getWeather(cityName.value)" #History> 
-Search<span class="fa fa-search"></span>
+<span class="fa fa-search" ></span>
 </button>
 
-<div *ngIf ="this.chart">
-    <canvas id="canvas"> {{ this.chart}}</canvas>
+<div id="container" style="width: 75%;">
+  <canvas id="canvas">{{chart}}</canvas>
 </div>
