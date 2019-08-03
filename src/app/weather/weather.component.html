@@ -1,14 +1,18 @@
-<h1>Weather Prediction</h1>
+<h1 class="title">
+  Weather Prediction
+</h1>
 
 <input type="text" name="" value ="" placeHolder="Search place to predict weather" #cityName id="cityName">
 
 <button type= "button" value= "button"
 id="search"
 class="btn btn-outline-primary btn-lr"
-(click)="this.getWeather(cityName.value)" #History> 
+(click)="this.getWeather(cityName.value)"> 
 <span class="fa fa-search" ></span>
 </button>
 
 <div id="container" style="width: 75%;">
   <canvas id="canvas">{{chart}}</canvas>
 </div>
+
+

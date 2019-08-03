@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { WeatherService } from '../weather.service';
 import { Chart} from 'chart.js';
 
-
-
-
 @Component({
   selector: 'app-weather',
   templateUrl: './weather.component.html',
@@ -13,7 +10,8 @@ import { Chart} from 'chart.js';
 export class WeatherComponent implements OnInit {
 
   chart = [];
-  color = Chart.helpers.color;
+  pastSearchDetails = [];
+
   
   constructor(private weatherService :WeatherService) { }
   ngOnInit() { }
@@ -22,10 +20,22 @@ export class WeatherComponent implements OnInit {
   getWeather(cityName) {
     this.weatherService.getData(cityName)
       .subscribe(res => {
+        
         var temp_max = res['list'].map(res => res.main.temp_max);
+        var maxCelius =[];
+        temp_max.forEach(res =>{
+          let maxC = res - 273.15;
+          maxCelius.push(maxC);
+        })
+
         var temp_min= res['list'].map(res => res.main.temp_min);
+        var minCelius =[];
+        temp_min.forEach(res =>{
+          let minC = res - 273.15;
+          minCelius.push(minC);
+        })
+        
         var dates = res['list'].map(res => res.dt);
- 
         var dateFormat = [];
         dates.forEach(res => {
           let jsdate = new Date (res*1000);
@@ -44,14 +54,14 @@ export class WeatherComponent implements OnInit {
                 backgroundColor: '#ff8a80' ,
                 borderColor: 'white',
                 borderWidth: 1,
-                data : temp_max,
+                data : maxCelius,
               },
               {
                 label: 'Maximum Temp',
                 backgroundColor: '#5c6bc0' ,
                 borderColor: 'white',
                 borderWidth: 1,
-                data : temp_min,
+                data : minCelius,
               },
            ] 
           },
@@ -69,10 +79,10 @@ export class WeatherComponent implements OnInit {
               }]
             }
           }
-        });
-
-      })
+        });      
+      })   
     }
+
 }
 
 

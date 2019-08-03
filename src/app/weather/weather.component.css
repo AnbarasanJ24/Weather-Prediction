@@ -1,8 +1,12 @@
+.title{
+    position: relative;
+    font-size: 3em;
+}
+
 #cityName{
     position : relative;
-    width: 63%;
-    height: 20%;
-    
+    width: 56%;
+    height: 55%;   
 }
 #search{
     position : relative;
@@ -12,4 +16,8 @@ canvas {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+}
+
+.fa-cloud-sun-rain{
+    color: aqua;
 }
